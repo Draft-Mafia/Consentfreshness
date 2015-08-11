@@ -136,7 +136,7 @@
 
     <abstract>
       <t>To prevent WebRTC applications, such as browsers, from launching
-      attacks by sending media to unwilling victims, periodic consent to send
+      attacks by sending traffic to unwilling victims, periodic consent to send
       needs to be obtained from remote endpoints.</t>
 
       <t>This document describes a consent mechanism using a new Session
@@ -201,7 +201,14 @@
       <t><list style="hanging">
           <t hangText="Consent:">The mechanism of obtaining permission from
           the remote endpoint to send non-ICE traffic to a remote transport
-          address. Consent is obtained using ICE.</t>
+          address. Consent is obtained using ICE. Note that this is an 
+          application-level consent; no human intervention is involved.
+          The only human level "consent" here is that the application
+          developer (e.g. WebRTC browser implementer) has programmed their
+          application to adhere to this specification. The actual end users
+          who are involved in the call have not consented to anything just
+          because their browser uses this protocol.
+</t>
 
           <t hangText="Consent Freshness:">Maintaining and renewing consent
           over time.</t>
@@ -394,7 +401,8 @@
     <section title="Security Considerations">
       <t>This document describes a security mechanism, details of which are
       mentioned in Section 4.1 and Section 4.2. Consent requires 96 bits
-      transaction ID to be uniformly and randomly chosen from the interval 0
+      transaction ID defined in section 6 of <xref target="RFC5389"/> to be
+      uniformly and randomly chosen from the interval 0
       .. 2**96-1, and be cryptographically strong. This is good enough
       security against an off-path attacker replaying old STUN consent
       responses. Consent Verification to avoid attacks using a browser as an
@@ -411,7 +419,7 @@
 
     <section title="Acknowledgement">
       <t>Thanks to Eric Rescorla, Harald Alvestrand, Bernard Aboba, Magnus
-      Westerland, Cullen Jennings, Christer Holmberg, Simon Perreault, Paul
+      Westerlund, Cullen Jennings, Christer Holmberg, Simon Perreault, Paul
       Kyzivat, Emil Ivov, Jonathan Lennox, Inaki Baz Castillo, Rajmohan
       Banavi, Christian Groves, Meral Shirazipour and David Black for their
       valuable inputs and comments. Thanks to Christer Holmberg for doing a
