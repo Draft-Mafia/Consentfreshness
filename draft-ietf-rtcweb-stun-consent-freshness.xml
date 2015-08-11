@@ -263,7 +263,7 @@
       <section title="Expiration of Consent">
         <t>A full ICE implementation obtains consent to send using ICE. After
         ICE concludes on a particular candidate pair and whenever the endpoint
-        sends application data on that pair consent MUST be maintained
+        sends application data on that pair consent is maintained
         following the procedure described in this document.</t>
 
         <t>An endpoint MUST NOT send data other than the messages used to
@@ -429,9 +429,6 @@
 
       <?rfc include="reference.RFC.5389"?>
 
-      <?rfc include="reference.I-D.ietf-rtcweb-security-arch"
-?>
-
       <?rfc include="reference.I-D.ietf-rtcweb-security"?>
     </references>
 
@@ -445,6 +442,8 @@
       <?rfc include="reference.I-D.ietf-tsvwg-rtcweb-qos"?>
 
       <?rfc include="reference.I-D.ietf-avtcore-srtp-ekt"?>
+      
+      <?rfc include="reference.I-D.ietf-rtcweb-security-arch"?>
 
       <?rfc include="reference.RFC.5961"?>
 
