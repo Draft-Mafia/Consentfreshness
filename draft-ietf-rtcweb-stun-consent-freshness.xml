@@ -147,7 +147,10 @@
   <middle>
     <section title="Introduction">
       <t>To prevent attacks on peers, endpoints have to ensure the remote peer
-      is willing to receive traffic. This is performed both when the session
+      is willing to receive traffic. Verification of peer consent before sending
+      traffic is necessary in deployments like WebRTC to ensure that a
+      malicious JavaScript cannot use the browser as a platform for launching
+      attacks. This is performed both when the session
       is first established to the remote peer using <xref
       target="RFC5245">Interactive Connectivity Establishment ICE</xref>
       connectivity checks, and periodically for the duration of the session
@@ -178,15 +181,12 @@
 
     <section anchor="sec-applic" title="Applicability">
       <t>This document defines what it takes to obtain, maintain, and lose
-      consent to send using ICE. Verification of peer consent before sending
-      traffic is necessary in deployments like WebRTC to ensure that a
-      malicious JavaScript cannot use the browser as a platform for launching
-      attacks. Section 4.4 and Section 5.3 of <xref
+      consent to send using ICE. Section 4.4 and Section 5.3 of <xref
       target="I-D.ietf-rtcweb-security-arch"></xref> further explains the
       value of obtaining and maintaining consent.</t>
 
       <t>Other Applications that have similar security requirements to verify
-      peer's consent before sending non-ICE packets can use the consent
+      peer consent before sending non-ICE packets can use the consent
       mechanism described in this document. The mechanism of how applications
       are made aware of consent expiration is outside the scope of the
       document.</t>
@@ -270,7 +270,7 @@
       <section title="Expiration of Consent">
         <t>A full ICE implementation obtains consent to send using ICE. After
         ICE concludes on a particular candidate pair and whenever the endpoint
-        sends application data on that pair consent MUST be maintained
+        sends application data on that pair consent is maintained
         following the procedure described in this document.</t>
 
         <t>An endpoint MUST NOT send data other than the messages used to
@@ -281,7 +281,7 @@
         RTP or Datagram Transport Layer Security (DTLS)) can be sent until
         consent is obtained.</t>
 
-        <t>Explicit consent to send is obtained and maintained by sending an
+        <t>Explicit consent to send is obtained and maintained by sending a
         STUN binding request to the remote peer's transport address and
         receiving a matching, authenticated, non-error STUN binding response
         from the remote peer's transport address. These STUN binding requests
@@ -308,7 +308,7 @@
         seconds. This timer is independent of the consent expiry timeout.</t>
 
         <t>Each STUN binding request for consent MUST use a new STUN
-        transaction identifier for every consent binding request, as described
+        transaction identifier, as described
         in Section 6 of <xref target="RFC5389"></xref>. Each STUN binding
         request for consent is transmitted once only. A sender therefore
         cannot assume that it will receive a response for every consent
@@ -433,14 +433,7 @@
 
       <?rfc include="reference.RFC.5245"?>
 
-      <?rfc include="reference.RFC.6263"?>
-
       <?rfc include="reference.RFC.5389"?>
-
-      <?rfc include="reference.I-D.ietf-rtcweb-security-arch"
-?>
-
-      <?rfc include="reference.I-D.ietf-rtcweb-security"?>
     </references>
 
     <references title="Informative References">
@@ -453,6 +446,10 @@
       <?rfc include="reference.I-D.ietf-tsvwg-rtcweb-qos"?>
 
       <?rfc include="reference.I-D.ietf-avtcore-srtp-ekt"?>
+      <?rfc include="reference.I-D.ietf-rtcweb-security-arch"?>
+      <?rfc include="reference.RFC.6263"?>
+
+      <?rfc include="reference.I-D.ietf-rtcweb-security"?>
 
       <?rfc include="reference.RFC.5961"?>
 
