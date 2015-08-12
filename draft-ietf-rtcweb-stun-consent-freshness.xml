@@ -12,7 +12,7 @@
 <?rfc subcompact="no"?>
 <?rfc tocompact="yes"?>
 <?rfc colonspace="yes"?>
-<rfc category="std" docName="draft-ietf-rtcweb-stun-consent-freshness-15"
+<rfc category="std" docName="draft-ietf-rtcweb-stun-consent-freshness-16"
  ipr="trust200902">
  <front>
  <title abbrev="STUN Usage for Consent Freshness">STUN Usage for Consent
@@ -202,13 +202,7 @@
           <t hangText="Consent:">The mechanism of obtaining permission from
           the remote endpoint to send non-ICE traffic to a remote transport
           address. Consent is obtained using ICE. Note that this is an 
-          application-level consent; no human intervention is involved.
-          The only human level "consent" here is that the application
-          developer (e.g. WebRTC browser implementer) has programmed their
-          application to adhere to this specification. The actual end users
-          who are involved in the call have not consented to anything just
-          because their browser uses this protocol.
-</t>
+          application-level consent; no human intervention is involved.</t>
 
           <t hangText="Consent Freshness:">Maintaining and renewing consent
           over time.</t>
