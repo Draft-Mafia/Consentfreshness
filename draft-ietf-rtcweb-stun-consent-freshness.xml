@@ -12,7 +12,7 @@
 <?rfc subcompact="no"?>
 <?rfc tocompact="yes"?>
 <?rfc colonspace="yes"?>
-<rfc category="std" docName="draft-ietf-rtcweb-stun-consent-freshness-15"
+<rfc category="std" docName="draft-ietf-rtcweb-stun-consent-freshness-16"
  ipr="trust200902">
  <front>
  <title abbrev="STUN Usage for Consent Freshness">STUN Usage for Consent
@@ -136,7 +136,7 @@
 
     <abstract>
       <t>To prevent WebRTC applications, such as browsers, from launching
-      attacks by sending media to unwilling victims, periodic consent to send
+      attacks by sending traffic to unwilling victims, periodic consent to send
       needs to be obtained from remote endpoints.</t>
 
       <t>This document describes a consent mechanism using a new Session
@@ -147,7 +147,10 @@
   <middle>
     <section title="Introduction">
       <t>To prevent attacks on peers, endpoints have to ensure the remote peer
-      is willing to receive traffic. This is performed both when the session
+      is willing to receive traffic. Verification of peer consent before sending
+      traffic is necessary in deployments like WebRTC to ensure that a
+      malicious JavaScript cannot use the browser as a platform for launching
+      attacks. This is performed both when the session
       is first established to the remote peer using <xref
       target="RFC5245">Interactive Connectivity Establishment ICE</xref>
       connectivity checks, and periodically for the duration of the session
@@ -178,15 +181,12 @@
 
     <section anchor="sec-applic" title="Applicability">
       <t>This document defines what it takes to obtain, maintain, and lose
-      consent to send using ICE. Verification of peer consent before sending
-      traffic is necessary in deployments like WebRTC to ensure that a
-      malicious JavaScript cannot use the browser as a platform for launching
-      attacks. Section 4.4 and Section 5.3 of <xref
+      consent to send using ICE. Section 4.4 and Section 5.3 of <xref
       target="I-D.ietf-rtcweb-security-arch"></xref> further explains the
       value of obtaining and maintaining consent.</t>
 
       <t>Other Applications that have similar security requirements to verify
-      peer's consent before sending non-ICE packets can use the consent
+      peer consent before sending non-ICE packets can use the consent
       mechanism described in this document. The mechanism of how applications
       are made aware of consent expiration is outside the scope of the
       document.</t>
@@ -201,7 +201,8 @@
       <t><list style="hanging">
           <t hangText="Consent:">The mechanism of obtaining permission from
           the remote endpoint to send non-ICE traffic to a remote transport
-          address. Consent is obtained using ICE.</t>
+          address. Consent is obtained using ICE. Note that this is an 
+          application-level consent; no human intervention is involved.</t>
 
           <t hangText="Consent Freshness:">Maintaining and renewing consent
           over time.</t>
@@ -263,7 +264,7 @@
       <section title="Expiration of Consent">
         <t>A full ICE implementation obtains consent to send using ICE. After
         ICE concludes on a particular candidate pair and whenever the endpoint
-        sends application data on that pair consent MUST be maintained
+        sends application data on that pair consent is maintained
         following the procedure described in this document.</t>
 
         <t>An endpoint MUST NOT send data other than the messages used to
@@ -274,7 +275,7 @@
         RTP or Datagram Transport Layer Security (DTLS)) can be sent until
         consent is obtained.</t>
 
-        <t>Explicit consent to send is obtained and maintained by sending an
+        <t>Explicit consent to send is obtained and maintained by sending a
         STUN binding request to the remote peer's transport address and
         receiving a matching, authenticated, non-error STUN binding response
         from the remote peer's transport address. These STUN binding requests
@@ -301,7 +302,7 @@
         seconds. This timer is independent of the consent expiry timeout.</t>
 
         <t>Each STUN binding request for consent MUST use a new STUN
-        transaction identifier for every consent binding request, as described
+        transaction identifier, as described
         in Section 6 of <xref target="RFC5389"></xref>. Each STUN binding
         request for consent is transmitted once only. A sender therefore
         cannot assume that it will receive a response for every consent
@@ -394,7 +395,8 @@
     <section title="Security Considerations">
       <t>This document describes a security mechanism, details of which are
       mentioned in Section 4.1 and Section 4.2. Consent requires 96 bits
-      transaction ID to be uniformly and randomly chosen from the interval 0
+      transaction ID defined in section 6 of <xref target="RFC5389"/> to be
+      uniformly and randomly chosen from the interval 0
       .. 2**96-1, and be cryptographically strong. This is good enough
       security against an off-path attacker replaying old STUN consent
       responses. Consent Verification to avoid attacks using a browser as an
@@ -411,7 +413,7 @@
 
     <section title="Acknowledgement">
       <t>Thanks to Eric Rescorla, Harald Alvestrand, Bernard Aboba, Magnus
-      Westerland, Cullen Jennings, Christer Holmberg, Simon Perreault, Paul
+      Westerlund, Cullen Jennings, Christer Holmberg, Simon Perreault, Paul
       Kyzivat, Emil Ivov, Jonathan Lennox, Inaki Baz Castillo, Rajmohan
       Banavi, Christian Groves, Meral Shirazipour and David Black for their
       valuable inputs and comments. Thanks to Christer Holmberg for doing a
@@ -425,14 +427,7 @@
 
       <?rfc include="reference.RFC.5245"?>
 
-      <?rfc include="reference.RFC.6263"?>
-
       <?rfc include="reference.RFC.5389"?>
-
-      <?rfc include="reference.I-D.ietf-rtcweb-security-arch"
-?>
-
-      <?rfc include="reference.I-D.ietf-rtcweb-security"?>
     </references>
 
     <references title="Informative References">
@@ -445,6 +440,10 @@
       <?rfc include="reference.I-D.ietf-tsvwg-rtcweb-qos"?>
 
       <?rfc include="reference.I-D.ietf-avtcore-srtp-ekt"?>
+      <?rfc include="reference.I-D.ietf-rtcweb-security-arch"?>
+      <?rfc include="reference.RFC.6263"?>
+
+      <?rfc include="reference.I-D.ietf-rtcweb-security"?>
 
       <?rfc include="reference.RFC.5961"?>
 
